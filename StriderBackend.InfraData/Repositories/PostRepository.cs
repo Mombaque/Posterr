@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Infra.Core;
+using Microsoft.EntityFrameworkCore;
+using StriderBackend.Domain.Models;
+using StriderBackend.Domain.Repositories;
 
 namespace StriderBackend.InfraData.Repositories
 {
-    internal class PostRepository
+    public class PostRepository : Repository<Post>, IPostRepository
     {
+        public PostRepository(DbContext context) : base(context)
+        {
+        }
+
+        public IQueryable<Post> GetUserPosts(Guid userId, int quantity = 5, int page = 1) => 
+            DbSet.Where(x => x.UserId == userId)
+                .Take(quantity)
+                .Skip(page);
     }
 }

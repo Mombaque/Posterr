@@ -1,13 +1,7 @@
-﻿using Domain.Core.Repository;
-using Infra.Core;
+﻿using Infra.Core;
 using Microsoft.EntityFrameworkCore;
 using StriderBackend.Domain.Models;
 using StriderBackend.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StriderBackend.InfraData.Repositories
 {
