@@ -12,6 +12,7 @@ namespace Infra.Core
         public Repository(DbContext context)
         {
             Db = context;
+            DbSet = context.Set<T>();
         }
 
         public void Add(T entity) => DbSet.Add(entity);
