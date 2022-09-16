@@ -13,7 +13,8 @@ namespace StriderBackend.InfraData.Repositories
 
         public IQueryable<Post> GetUserPosts(Guid userId, int quantity = 5, int page = 1) => 
             DbSet.Where(x => x.UserId == userId)
+                .OrderBy(x => x.Date)
                 .Take(quantity)
-                .Skip(page);
+                .Skip(page - 1 * quantity);
     }
 }
