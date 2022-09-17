@@ -2,7 +2,7 @@
 
 namespace StriderBackend.Domain.Models
 {
-    public class Post : Entity
+    public class Post : Entity<Guid>
     {
         public Post(string content, DateTime date, Guid userId)
         {

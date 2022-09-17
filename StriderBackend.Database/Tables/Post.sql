@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Post]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [UserId] INT NOT NULL,
+    [Content] VARCHAR(777) NOT NULL, 
+    [Date] DATE NOT NULL, 
+    CONSTRAINT [FK_Post_User] FOREIGN KEY ([UserId]) REFERENCES [User]([Id])
+)

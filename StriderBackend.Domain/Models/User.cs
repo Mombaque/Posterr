@@ -2,7 +2,7 @@
 
 namespace StriderBackend.Domain.Models
 {
-    public class User: Entity
+    public class User: Entity<int>
     {
         public User(string name, DateTime creationDate)
         {
