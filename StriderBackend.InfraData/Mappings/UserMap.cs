@@ -10,7 +10,9 @@ namespace StriderBackend.InfraData.Mappings
         {
             builder.ToTable("User").HasKey(x => x.Id);
 
-            builder.HasMany(x => x.Posts).WithOne();
+            //builder.HasMany(x => x.Posts)
+            //    .WithOne(x => x.User)
+            //    .HasForeignKey(x => x.UserId);
         }
     }
 }

@@ -5,7 +5,7 @@ BEGIN
 	BEGIN
 		INSERT INTO [User] VALUES (1, 'Jordan Rudess', GETDATE());
 		INSERT INTO [User] VALUES (2, 'Alexander', GETDATE());
-		INSERT INTO [User] VALUES (3, 'Steve Vai', GETDATE());
+		INSERT INTO [User] VALUES (3, 'Obdolbos', GETDATE());
 		INSERT INTO [User] VALUES (4, 'Someone', GETDATE());
 
 		INSERT INTO [Post] VALUES (NEWID(), 1, 'Lorem ipsum dolor sit amet!', GETDATE())

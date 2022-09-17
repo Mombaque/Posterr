@@ -12,7 +12,7 @@ namespace StriderBackend.InfraData.Repositories
         {
         }
 
-        public User GetUserWithPosts(Guid userId)
+        public User GetUserWithPosts(int userId)
         {
             return DbSet
                 .Include(x => x.Posts)

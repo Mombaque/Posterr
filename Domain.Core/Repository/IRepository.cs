@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Core.Repository
 {
-    public interface IRepository<T> where T : Entity
+    public interface IRepository<T> where T : class
     {
         IQueryable<T> GetAll();
         T Get(Guid id);

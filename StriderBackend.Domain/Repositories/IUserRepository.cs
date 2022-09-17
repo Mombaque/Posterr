@@ -4,6 +4,6 @@ namespace StriderBackend.Domain.Repositories
 {
     public interface IUserRepository
     {
-        User GetUserWithPosts(Guid userId);
+        User GetUserWithPosts(int userId);
     }
 }

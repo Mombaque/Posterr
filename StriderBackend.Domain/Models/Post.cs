@@ -4,7 +4,7 @@ namespace StriderBackend.Domain.Models
 {
     public class Post : Entity<Guid>
     {
-        public Post(string content, DateTime date, Guid userId)
+        public Post(string content, DateTime date, int userId)
         {
             Content = content;
             Date = date;
@@ -18,7 +18,7 @@ namespace StriderBackend.Domain.Models
 
         public string Content { get; protected set; }
         public DateTime Date { get; protected set; }
-        public Guid UserId { get; protected set; }
+        public int UserId { get; protected set; }
 
         public User? User { get; protected set; }
     }
