@@ -1,10 +1,8 @@
 ﻿namespace Domain.Core.Models
 {
-    public class Entity
+    [Serializable]
+    public abstract class Entity<TID>
     {
-        public Entity()
-        { }
-
-        public Guid Id { get; protected set; }
+        public TID Id { get; set; }
     }
 }
