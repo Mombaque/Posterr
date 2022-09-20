@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StriderBackend.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StriderBackend.InfraData.Mappings
 {
@@ -13,7 +8,7 @@ namespace StriderBackend.InfraData.Mappings
     {
         public void Configure(EntityTypeBuilder<UserFollower> builder)
         {
-            //builder.ToTable("UserFollower").has
+            builder.ToTable("UserFollower").HasKey(x => new { x.UserId, x.UserFollowerId });
         }
     }
 }

@@ -9,7 +9,15 @@ namespace StriderBackend.Domain.Models
 {
     public class UserFollower : Entity<Guid>
     {
-        public Guid UserId { get; private set; }
-        public Guid UserFollowerId { get; private set; }
+        public UserFollower(Guid userId, Guid userFollowerId)
+        {
+            UserId = userId;
+            UserFollowerId = userFollowerId;
+        }
+
+        public Guid UserId { get; protected set; }
+        public Guid UserFollowerId { get; protected set; }
+
+        public User? Follower { get; protected set; }
     }
 }
