@@ -1,4 +1,5 @@
 ﻿using Api.Core;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using StriderBackend.Domain.Repositories;
 
@@ -8,10 +9,14 @@ namespace StriderBackend.Api.Controllers.V1
     public class UserController : ApiController
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(
+            IUserRepository userRepository,
+            IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         [HttpGet("get-user-with-posts/{id}")]

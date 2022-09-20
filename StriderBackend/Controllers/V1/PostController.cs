@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using StriderBackend.Api.Controllers.V1.InputModels;
 using StriderBackend.Api.Controllers.V1.ViewModels;
+using StriderBackend.Domain.Models;
 using StriderBackend.Domain.Repositories;
 
 namespace StriderBackend.Api.Controllers.V1
@@ -11,6 +12,7 @@ namespace StriderBackend.Api.Controllers.V1
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
+
         public PostController(
             IPostRepository postRepository, 
             IMapper mapper)
@@ -28,9 +30,10 @@ namespace StriderBackend.Api.Controllers.V1
         }
 
         [HttpPost("save-post")]
-        public async Task<IActionResult> GetPostsByUserId(PostInputModel input)
+        public async Task<IActionResult> SavePost(PostInputModel input)
         {
-            return await Task.FromResult(Response());
+            var result = _mapper.Map<Post>(input);
+            return await Task.FromResult(Response(result));
         }
     }
 }

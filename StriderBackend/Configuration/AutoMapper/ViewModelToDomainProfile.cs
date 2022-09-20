@@ -15,7 +15,7 @@ namespace StriderBackend.Api.Configuration.AutoMapper
 
         private void MapPosts()
         {
-            CreateMap<Post, PostInputModel>();
+            CreateMap<PostInputModel, Post>();
         }
 
         private void MapUsers()
