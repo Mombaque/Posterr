@@ -29,7 +29,7 @@ namespace StriderBackend.Test.Repositories
         [InlineData(2)]
         public void Shoud_Get_Posts_By_UserId_With_Pagination(int page)
         {
-            var userId = Guid.NewGuid();
+            var userId = 4;
             var startingDate = DateTime.Now.Date.AddHours(8);
             var quantity = page == 1 ? 3 : 2;
 

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="05346066-84e0-4f2d-a5d5-2ab24174e81c" ChangeDateTime="09/20/2022 22:01:09">
+    <Property Name="ElementName" Value="[dbo].[FK_UserFollower_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[UserFollower]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_UserFollower_User]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6a3e42de-b9ba-4575-8dd8-d2bb34632158" ChangeDateTime="09/20/2022 22:57:12">
+    <Property Name="ElementName" Value="[dbo].[Post].[PostType]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Post]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Type" />
+  </Operation>
+</Operations>

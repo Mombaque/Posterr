@@ -28,7 +28,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StriderBackend.Test", "StriderBackend.Test\StriderBackend.Test.csproj", "{C84119BB-A9F3-40F4-A52B-526777A64BB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StriderBackend.Test", "StriderBackend.Test\StriderBackend.Test.csproj", "{C84119BB-A9F3-40F4-A52B-526777A64BB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Core", "Api.Core\Api.Core.csproj", "{16B385F0-3E1F-4BD3-9ACC-291840A62085}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +68,10 @@ Global
 		{C84119BB-A9F3-40F4-A52B-526777A64BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C84119BB-A9F3-40F4-A52B-526777A64BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C84119BB-A9F3-40F4-A52B-526777A64BB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16B385F0-3E1F-4BD3-9ACC-291840A62085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16B385F0-3E1F-4BD3-9ACC-291840A62085}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16B385F0-3E1F-4BD3-9ACC-291840A62085}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16B385F0-3E1F-4BD3-9ACC-291840A62085}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{1ED6745B-FF0D-47E6-A8A6-125166F90D7F} = {8FBF27F5-29C7-4C82-A632-6DA30A276468}
 		{30C89417-CCBA-4AD2-BA0B-71EBCDB6868A} = {8FBF27F5-29C7-4C82-A632-6DA30A276468}
 		{C84119BB-A9F3-40F4-A52B-526777A64BB3} = {70866D3F-1EC7-43F8-BC46-F8E7F47B2FD6}
+		{16B385F0-3E1F-4BD3-9ACC-291840A62085} = {E0D7690F-0298-4DE7-98FF-D8412D20DA86}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FBF3AB72-BD53-4A73-9019-808F71482CB8}

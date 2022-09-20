@@ -7,12 +7,12 @@ namespace StriderBackend.Test.Builders.Models
     {
         public PostBuilder() : base(default, default, default){}
 
-        public PostBuilder DefaultAndValid(Guid? id = null, Guid? userId = null)
+        public PostBuilder DefaultAndValid(Guid? id = null, int? userId = null)
         {
             Id = id ?? Guid.NewGuid();
             Date = DateTime.Now;
             Content = "Some message";
-            UserId = userId ?? Guid.NewGuid();
+            UserId = userId ?? 15;
 
             return this;
         }

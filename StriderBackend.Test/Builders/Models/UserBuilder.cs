@@ -11,9 +11,8 @@ namespace StriderBackend.Test.Builders.Models
         public UserBuilder() : base(default, default){}
 
 
-        public UserBuilder DefaultAndValid(Guid? id = default)
+        public UserBuilder DefaultAndValid()
         {
-            Id = id ?? Guid.NewGuid();
             Name = "John Petrucci";
             CreationDate = DateTime.Now;
             
@@ -25,6 +24,10 @@ namespace StriderBackend.Test.Builders.Models
             return this;
         }
 
-
+        public UserBuilder WithId(int id)
+        {
+            Id = id;
+            return this;
+        }
     }
 }

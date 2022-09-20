@@ -4,5 +4,9 @@
     [UserId] INT NOT NULL,
     [Content] VARCHAR(777) NOT NULL, 
     [Date] DATE NOT NULL, 
-    CONSTRAINT [FK_Post_User] FOREIGN KEY ([UserId]) REFERENCES [User]([Id])
+    [RepostId] UNIQUEIDENTIFIER NULL, 
+    [Type] INT NULL, 
+    [QuoteCommentary] NVARCHAR(777) NULL, 
+    CONSTRAINT [FK_Post_User] FOREIGN KEY ([UserId]) REFERENCES [User]([Id]), 
+    CONSTRAINT [FK_Post_Post] FOREIGN KEY ([RepostId]) REFERENCES [Post]([Id])
 )

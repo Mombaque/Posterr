@@ -1,9 +1,10 @@
-﻿using StriderBackend.Domain.Models;
+﻿using Domain.Core.Repository;
+using StriderBackend.Domain.Models;
 
 namespace StriderBackend.Domain.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository<User, int>
     {
-        User GetUserWithPosts(Guid userId);
+        User GetUserWithPosts(int userId);
     }
 }

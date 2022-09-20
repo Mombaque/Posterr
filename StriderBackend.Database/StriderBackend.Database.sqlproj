@@ -62,7 +62,11 @@
   <ItemGroup>
     <Build Include="Tables\User.sql" />
     <Build Include="Tables\Post.sql" />
-    <Build Include="Seed\PosterrSeed.sql" />
+    <None Include="Seed\PosterrSeed.sql" />
     <None Include="InitialScript.sql" />
+    <Build Include="Tables\UserFollower.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="StriderBackend.Database.refactorlog" />
   </ItemGroup>
 </Project>

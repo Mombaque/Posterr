@@ -26,12 +26,12 @@ namespace StriderBackend.Test.Repositories
         [Fact]
         public void Should_Get_User_With_Posts()
         {
-            var userId = Guid.NewGuid();
+            var userId = 5;
 
             var users = new List<User>
             {
                 new UserBuilder().DefaultAndValid(),
-                new UserBuilder().DefaultAndValid(userId),
+                new UserBuilder().DefaultAndValid().WithId(userId),
                 new UserBuilder().DefaultAndValid(),
                 new UserBuilder().DefaultAndValid(),
                 new UserBuilder().DefaultAndValid(),

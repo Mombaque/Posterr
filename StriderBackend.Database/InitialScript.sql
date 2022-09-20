@@ -1,1 +1,2 @@
-﻿EXEC PosterrSeed
+﻿EXEC PosterrSeed;
+DROP PROCEDURE PosterrSeed;
