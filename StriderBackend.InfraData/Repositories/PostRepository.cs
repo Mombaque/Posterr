@@ -5,7 +5,7 @@ using StriderBackend.InfraData.Context;
 
 namespace StriderBackend.InfraData.Repositories
 {
-    public class PostRepository : Repository<Post>, IPostRepository
+    public class PostRepository : Repository<Post, Guid>, IPostRepository
     {
         public PostRepository(DataContext context) : base(context)
         {
