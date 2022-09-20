@@ -4,27 +4,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Core
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<TEntity, TID> : IRepository<TEntity, TID> where TEntity : class
     {
         protected DbContext Db;
-        protected DbSet<T> DbSet;
+        protected DbSet<TEntity> DbSet;
 
         public Repository(DbContext context)
         {
             Db = context;
-            DbSet = context.Set<T>();
+            DbSet = context.Set<TEntity>();
         }
 
-        public void Add(T entity) => DbSet.Add(entity);
+        public void Add(TEntity entity) => DbSet.Add(entity);
 
-        public void Update(T entity) => DbSet.Update(entity);
+        public void Update(TEntity entity) => DbSet.Update(entity);
 
-        public void Delete(T entity) => DbSet.Remove(entity);
+        public void Delete(TEntity entity) => DbSet.Remove(entity);
 
         public void SaveChanges() => Db.SaveChanges();
 
-        public IQueryable<T> GetAll() => DbSet;
+        public IQueryable<TEntity> GetAll() => DbSet;
 
-        public T Get(Guid id) => DbSet.Find(id);
+        public TEntity GetById(TID id) => DbSet.Find(id);
     }
 }

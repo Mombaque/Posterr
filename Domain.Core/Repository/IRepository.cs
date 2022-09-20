@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Domain.Core.Repository
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<TEntity, TID> where TEntity : class
     {
-        IQueryable<T> GetAll();
-        T Get(Guid id);
-        void Add(T entity);
-        void Update(T entity);
-        void Delete(T entity);
+        IQueryable<TEntity> GetAll();
+        TEntity GetById(TID id);
+        void Add(TEntity entity);
+        void Update(TEntity entity);
+        void Delete(TEntity entity);
         void SaveChanges();
     }
 }
