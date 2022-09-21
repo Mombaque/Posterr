@@ -62,8 +62,7 @@
   <ItemGroup>
     <Build Include="Tables\User.sql" />
     <Build Include="Tables\Post.sql" />
-    <None Include="Seed\PosterrSeed.sql" />
-    <None Include="InitialScript.sql" />
+    <PostDeploy Include="Seed\PosterrSeed.sql" />
     <Build Include="Tables\UserFollower.sql" />
   </ItemGroup>
   <ItemGroup>
