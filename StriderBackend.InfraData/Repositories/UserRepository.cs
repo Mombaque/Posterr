@@ -6,7 +6,7 @@ using StriderBackend.InfraData.Context;
 
 namespace StriderBackend.InfraData.Repositories
 {
-    public class UserRepository : Repository<User>, IUserRepository
+    public class UserRepository : Repository<User, int>, IUserRepository
     {
         public UserRepository(DataContext context) : base(context)
         {

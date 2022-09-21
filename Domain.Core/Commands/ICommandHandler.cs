@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Core.Services
 {
-    public interface ICommandHandler<in TRequest, TResponse> where TRequest : Command
+    public interface ICommandHandler<in TRequest, TResponse> where TRequest : class
     {
         Task<TResponse> Handle(TRequest command);
     }

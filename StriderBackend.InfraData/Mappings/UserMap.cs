@@ -14,9 +14,9 @@ namespace StriderBackend.InfraData.Mappings
                 .WithOne(x => x.User)
                 .HasForeignKey(x => x.UserId);
 
-            builder.HasMany(x => x.Followers)
-                .WithOne(x => x)
-                .HasForeignKey(x => x.Id);
+            //builder.HasMany(x => x.Followers)
+            //    .WithOne(x => x)
+            //    .HasForeignKey(x => x.Id);
         }
     }
 }
