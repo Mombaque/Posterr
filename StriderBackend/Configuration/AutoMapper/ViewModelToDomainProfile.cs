@@ -1,7 +1,7 @@
 ﻿
 using AutoMapper;
 using StriderBackend.Api.Controllers.V1.InputModels;
-using StriderBackend.Domain.Models;
+using StriderBackend.Domain.Commands.User;
 
 namespace StriderBackend.Api.Configuration.AutoMapper
 {
@@ -15,7 +15,7 @@ namespace StriderBackend.Api.Configuration.AutoMapper
 
         private void MapPosts()
         {
-            CreateMap<PostInputModel, Post>();
+            CreateMap<SavePostInputModel, SavePostCommand>();
         }
 
         private void MapUsers()

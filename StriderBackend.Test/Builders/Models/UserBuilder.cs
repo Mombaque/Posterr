@@ -29,5 +29,11 @@ namespace StriderBackend.Test.Builders.Models
             Id = id;
             return this;
         }
+
+        public UserBuilder WithPosts(List<Post> posts)
+        {
+            Posts = posts;
+            return this;
+        }
     }
 }

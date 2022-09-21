@@ -5,7 +5,7 @@ namespace StriderBackend.Test.Builders.Models
 {
     public class PostBuilder : Post
     {
-        public PostBuilder() : base(default, default, default){}
+        public PostBuilder() : base(default, default, default, default){}
 
         public PostBuilder DefaultAndValid(Guid? id = null, int? userId = null)
         {
