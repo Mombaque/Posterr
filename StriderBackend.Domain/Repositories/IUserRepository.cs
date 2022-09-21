@@ -6,5 +6,6 @@ namespace StriderBackend.Domain.Repositories
     public interface IUserRepository : IRepository<User, int>
     {
         User GetUserWithPosts(int userId);
+        IQueryable<UserFollower> GetUserFollowers(int userId);
     }
 }

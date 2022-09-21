@@ -3,6 +3,7 @@ using AutoMapper;
 using Domain.Core.Notification;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using StriderBackend.Api.Controllers.V1.ViewModels;
 using StriderBackend.Domain.Repositories;
 
 namespace StriderBackend.Api.Controllers.V1
@@ -26,7 +27,16 @@ namespace StriderBackend.Api.Controllers.V1
         public async Task<IActionResult> GetPosts(int id)
         {
             var user = _userRepository.GetUserWithPosts(id);
-            return await Task.FromResult(Response(user));
+            var viewModel = _mapper.Map<UserViewModel>(user);
+            return await Task.FromResult(Response(viewModel));
+        }
+
+        [HttpGet("get-followers/{userId}")]
+        public async Task<IActionResult> GetFollowers(int userId)
+        {
+            var userFollowers = _userRepository.GetUserFollowers(userId);
+            var viewModel = _mapper.Map<IEnumerable<UserViewModel>>(userFollowers);
+            return await Task.FromResult(Response(viewModel));
         }
     }
 }

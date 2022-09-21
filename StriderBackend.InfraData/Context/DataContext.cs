@@ -16,6 +16,7 @@ namespace StriderBackend.InfraData.Context
 
         public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<UserFollower> UserFollower { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

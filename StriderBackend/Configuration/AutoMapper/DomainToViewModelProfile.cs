@@ -10,18 +10,15 @@ namespace StriderBackend.Api.Configuration.AutoMapper
         public DomainToViewModelProfile()
         {
             MapUsers();
-            MapPosts();
         }
 
         public void MapUsers()
         {
             CreateMap<User, UserViewModel>();
-        }
 
-        public void MapPosts()
-        {
-            CreateMap<Post, PostViewModel>();
-                //.ForMember(x => x.Content, y => y.MapFrom(z => ));
+            CreateMap<UserFollower, UserViewModel>()
+                .ForMember(x => x.Id, y => y.MapFrom(z => z.Follower.Id))
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Follower.Name));
         }
     }
 }

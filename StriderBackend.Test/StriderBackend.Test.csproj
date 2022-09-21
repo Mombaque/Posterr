@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\StriderBackend.InfraData\StriderBackend.InfraData.csproj" />
   </ItemGroup>
 
