@@ -39,6 +39,12 @@ namespace StriderBackend.Domain.Commands.User
                 return await Task.FromResult(false);
             }
 
+            if(user.PostsLimitReached(request.Date))
+            {
+                NotifyError("User reached maximum of 5 allowed in this date");
+                return await Task.FromResult(false);
+            }
+
             var post = new Post(
                 request.Content,
                 request.Date,
