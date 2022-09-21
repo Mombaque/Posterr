@@ -1,9 +1,7 @@
 ﻿using Domain.Core.Commands;
 using Domain.Core.Mediator;
-using Domain.Core.Models;
 using Domain.Core.Notification;
 using Domain.Core.Repository;
-using Domain.Core.Services;
 using MediatR;
 using StriderBackend.Domain.Models;
 using StriderBackend.Domain.Repositories;
@@ -14,7 +12,6 @@ namespace StriderBackend.Domain.Commands.User
     {
         private readonly IPostRepository _postRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IMediatorHandler _mediator;
 
         public UserCommandHandler(
             IUnitOfWork uow,
@@ -49,7 +46,6 @@ namespace StriderBackend.Domain.Commands.User
                 request.Type);
 
             user.AddPost(post);
-            _userRepository.Add(user);
 
             return await Task.FromResult(Commit());
         }

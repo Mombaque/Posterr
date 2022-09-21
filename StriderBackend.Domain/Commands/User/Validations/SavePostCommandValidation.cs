@@ -13,10 +13,12 @@ namespace StriderBackend.Domain.Commands.User.Validations
         {
             RuleFor(x => x.UserId).NotEmpty().NotNull();
             RuleFor(x => x.Content).NotEmpty().NotNull();
-            RuleFor(x => x.Type).NotEmpty().NotNull();
             RuleFor(x => x.Date).NotEmpty().NotNull();
+            RuleFor(x => x.Type).IsInEnum();
 
-            RuleFor(x => x.QuoteCommentary).NotEmpty().NotNull()
+            RuleFor(x => x.QuoteCommentary)
+                .NotEmpty()
+                .NotNull()
                 .When(x => x.Type == Enums.EPostType.Quote);
         }
     }

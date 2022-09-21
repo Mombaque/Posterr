@@ -1,12 +1,8 @@
 ﻿using Api.Core;
 using AutoMapper;
-using Domain.Core.Commands;
 using Domain.Core.Notification;
-using Domain.Core.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using StriderBackend.Api.Controllers.V1.InputModels;
-using StriderBackend.Domain.Commands.User;
 using StriderBackend.Domain.Repositories;
 
 namespace StriderBackend.Api.Controllers.V1

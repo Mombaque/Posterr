@@ -19,7 +19,7 @@ namespace StriderBackend.Domain.Models
         public DateTime CreationDate { get; protected set; }
 
         public List<Post> Posts { get; protected set; }
-        public IEnumerable<User> Followers { get; protected set; }
+        //public IEnumerable<User> Followers { get; protected set; }
 
         public void AddPost(Post post)
         {
