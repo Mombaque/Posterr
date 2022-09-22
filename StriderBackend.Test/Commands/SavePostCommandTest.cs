@@ -1,8 +1,6 @@
 ﻿using Domain.Core.Mediator;
 using Domain.Core.Notification;
 using Domain.Core.Repository;
-using Infra.Core;
-using MediatR;
 using Moq;
 using StriderBackend.Domain.Commands.User;
 using StriderBackend.Domain.Models;
@@ -11,10 +9,7 @@ using StriderBackend.Test.Builders.Commands;
 using StriderBackend.Test.Builders.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace StriderBackend.Test.Commands
@@ -112,13 +107,15 @@ namespace StriderBackend.Test.Commands
         [Fact]
         public async void Should_Return_False_When_User_Reached_Post_Limit_Per_Day()
         {
+            var date = DateTime.Now.Date;
+
             var posts = new List<Post>()
             {
-                new PostBuilder().DefaultAndValid(),
-                new PostBuilder().DefaultAndValid(),
-                new PostBuilder().DefaultAndValid(),
-                new PostBuilder().DefaultAndValid(),
-                new PostBuilder().DefaultAndValid(),
+                new PostBuilder().DefaultAndValid().WithDate(date),
+                new PostBuilder().DefaultAndValid().WithDate(date),
+                new PostBuilder().DefaultAndValid().WithDate(date),
+                new PostBuilder().DefaultAndValid().WithDate(date),
+                new PostBuilder().DefaultAndValid().WithDate(date),
             };
 
             _userRepository.Setup(x => x.GetById(It.IsAny<int>()))
@@ -132,7 +129,8 @@ namespace StriderBackend.Test.Commands
             Assert.False(result);
 
             _mediator.Verify(x => 
-                x.SendCommand(It.Is<DomainNotification>(y => y.Value.Contains("User reached maximum of 5 allowed in this date"))), 
+                x.SendCommand(It.Is<DomainNotification>(y => 
+                    y.Value.Contains("User reached maximum of 5 allowed in this date"))), 
                 Times.Once);
 
             _uow.Verify(x => x.Commit(), Times.Never);

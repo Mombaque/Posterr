@@ -11,8 +11,9 @@ namespace StriderBackend.Test.Builders.Models
         public UserBuilder() : base(default, default){}
 
 
-        public UserBuilder DefaultAndValid()
+        public UserBuilder DefaultAndValid(int id = default)
         {
+            Id = id;
             Name = "John Petrucci";
             CreationDate = DateTime.Now;
             
@@ -33,6 +34,12 @@ namespace StriderBackend.Test.Builders.Models
         public UserBuilder WithPosts(List<Post> posts)
         {
             Posts = posts;
+            return this;
+        }
+
+        public UserBuilder WithFollower(UserBuilder follower)
+        {
+            AddFollower(follower);
             return this;
         }
     }

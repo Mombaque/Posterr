@@ -13,7 +13,7 @@ namespace StriderBackend.Domain.Commands.User.Validations
         {
             RuleFor(x => x.UserId).NotEmpty().NotNull();
             RuleFor(x => x.Content).NotEmpty().NotNull();
-            RuleFor(x => x.Date).NotEmpty().NotNull().GreaterThanOrEqualTo(DateTime.UtcNow.Date);
+            RuleFor(x => x.Date).NotEmpty().NotNull().GreaterThanOrEqualTo(DateTime.Now.Date);
             RuleFor(x => x.Type).IsInEnum();
 
             RuleFor(x => x.QuoteCommentary)

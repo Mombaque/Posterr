@@ -1,14 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Core.Commands;
+using StriderBackend.Domain.Commands.User.Validations;
 
 namespace StriderBackend.Domain.Commands.User
 {
-    public class FollowUserCommand
+    public class FollowUserCommand : Command<bool>
     {
-        public int UserId { get; private set; }
-        public int UserFollowerId { get; private set; }
+        public FollowUserCommand(int userId, int userFollowerId)
+        {
+            UserId = userId;
+            UserFollowerId = userFollowerId;
+        }
+
+        public int UserId { get; protected set; }
+        public int UserFollowerId { get; protected set; }
+
+        public override bool IsValid()
+        {
+            ValidationResult = new FollowUserCommandValidation<FollowUserCommand>().Validate(this);
+            return ValidationResult.IsValid;
+        }
     }
 }

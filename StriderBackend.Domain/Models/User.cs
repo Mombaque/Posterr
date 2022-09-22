@@ -1,4 +1,5 @@
 ﻿using Domain.Core.Models;
+using System;
 
 namespace StriderBackend.Domain.Models
 {
@@ -27,6 +28,13 @@ namespace StriderBackend.Domain.Models
             if(Posts == null)
                 Posts = new List<Post>();
             Posts.Add(post);
+        }
+
+        public void AddFollower(User userFollower)
+        {
+            if (Followers == null)
+                Followers = new List<User>();
+            Followers.Add(userFollower);
         }
 
         public bool PostsLimitReached(DateTime date) => 

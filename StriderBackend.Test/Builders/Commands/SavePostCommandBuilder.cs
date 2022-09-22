@@ -14,7 +14,7 @@ namespace StriderBackend.Test.Builders.Commands
         {
             Content = "Sed ut perspiciatis sit voluptatem accusantium doloremque laudantium";
             UserId = new Random().Next(1, 9999);
-            Date = DateTime.UtcNow.Date.AddHours(23).AddMinutes(59);
+            Date = DateTime.Now.Date.AddHours(23).AddMinutes(59);
             Type = type;
 
             if (Type == EPostType.Quote)
