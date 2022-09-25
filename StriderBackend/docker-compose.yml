@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-   posterr.database:
+   db:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: posterrdatabase
     ports:
@@ -18,4 +18,10 @@ services:
     ports:
     - "8000:8000"
     depends_on:
-        - posterr.database
+        - db
+    environment:
+        DbServer: "db"
+        DbPort: "11433"
+        DbUser: "sa"
+        Password: "numsey#2021"
+        Database: "posterrdatabase"
