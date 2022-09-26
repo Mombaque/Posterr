@@ -19,15 +19,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var server = configuration["DbServer"] ?? "localhost";
-var port = server == "localhost" ? 
-    configuration["DbPort"] ?? "11433" 
-    : string.Empty;
+var server = configuration["DbServer"] ?? "localhost,11433";
 var user = configuration["DbUser"] ?? "sa";
 var password = configuration["Password"] ?? "ea!@#12345";
 var database = configuration["Database"] ?? "PosterrDatabase";
 
-var connectionString = $"Server={server},{port};Initial Catalog={database};User ID={user};Password={password}";
+var connectionString = $"Server={server};Initial Catalog={database};User ID={user};Password={password}";
 
 builder.Services.AddDbContext<DataContext>(o => o.UseSqlServer(connectionString));
     

@@ -1,27 +1,34 @@
 version: '3.7'
 
 services:
-   db:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: posterrdatabase
-    ports:
-    - "11433:1433"
-    environment: 
-      MSSQL_SA_PASSWORD: ea!@#12345
-      MSSQL_PID: Developer
-      ACCEPT_EULA: Y
-    volumes:
-       - C:\Posterr:/var/opt/mssql
-   posterr.api:
-    image: posterr_api
-    container_name: posterrapi
-    ports:
-    - "8000:8000"
-    depends_on:
-        - db
-    environment:
-        DbServer: "db"
-        DbPort: "11433"
-        DbUser: "sa"
-        Password: "numsey#2021"
-        Database: "posterrdatabase"
+    db:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        container_name: posterrdatabase
+        ports:
+        - "11433:1433"
+        environment: 
+            MSSQL_SA_PASSWORD: ea!@#12345
+            MSSQL_PID: Developer
+            ACCEPT_EULA: Y
+        volumes:
+            - C:\Posterr:/var/opt/mssql
+    posterr.api:
+        image: posterr_api
+        container_name: posterrapi
+        ports:
+        - "8000:8000"
+        depends_on:
+            - db
+        environment:
+            DbServer: "db"
+            DbPort: "11433"
+            DbUser: "sa"
+            Password: "ea!@#12345"
+            Database: "posterrdatabase"
+    mssqltools:
+        image: mcr.microsoft.com/mssql-tools
+        depends_on:
+            - db
+        volumes:
+            - ../StriderBackend.Database/InitialScript.sql:/tmp/InitialScript.sql
+        command: /opt/mssql-tools/bin/sqlcmd -S db -U sa -P ea!@#12345 -d PosterrDatabase -i /tmp/InitialScript.sql

@@ -68,4 +68,7 @@
   <ItemGroup>
     <RefactorLog Include="StriderBackend.Database.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="StriderBackend.Database.publish.xml" />
+  </ItemGroup>
 </Project>
