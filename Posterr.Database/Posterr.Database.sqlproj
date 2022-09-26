@@ -68,4 +68,7 @@
   <ItemGroup>
     <None Include="Posterr.Database.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="StriderBackend.Database.publish.xml" />
+  </ItemGroup>
 </Project>

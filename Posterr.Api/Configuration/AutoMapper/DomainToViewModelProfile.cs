@@ -10,6 +10,7 @@ namespace Posterr.Api.Configuration.AutoMapper
         public DomainToViewModelProfile()
         {
             MapUsers();
+            MapPosts();
         }
 
         public void MapUsers()
@@ -19,6 +20,11 @@ namespace Posterr.Api.Configuration.AutoMapper
             CreateMap<UserFollower, UserViewModel>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => z.Follower.Id))
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Follower.Name));
+        }
+        private void MapPosts()
+        {
+            CreateMap<Post, PostViewModel>();
+
         }
     }
 }

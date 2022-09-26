@@ -12,16 +12,16 @@ USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
 WORKDIR /src
-COPY ["Posterr/Posterr.Api.csproj", "Posterr/"]
-RUN dotnet restore "Posterr/Posterr.Api.csproj"
+COPY ["StriderBackend/StriderBackend.Api.csproj", "StriderBackend/"]
+RUN dotnet restore "StriderBackend/StriderBackend.Api.csproj"
 COPY . .
-WORKDIR "/src/Posterr"
-RUN dotnet build "Posterr.Api.csproj" -c Release -o /app/build
+WORKDIR "/src/StriderBackend"
+RUN dotnet build "StriderBackend.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Posterr.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "StriderBackend.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Posterr.Api.dll"]
+ENTRYPOINT ["dotnet", "StriderBackend.Api.dll"]
