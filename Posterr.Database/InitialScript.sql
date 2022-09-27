@@ -1,18 +1,21 @@
 IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'PosterrDatabase')
+BEGIN
     CREATE DATABASE PosterrDatabase
+END
+
 USE PosterrDatabase
 GO
 
-IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Post')
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name = 'Post')
 BEGIN
     CREATE TABLE [dbo].[Post] (
-        [Id]              UNIQUEIDENTIFIER NOT NULL,
-        [UserId]          INT              NOT NULL,
-        [Content]         VARCHAR (777)    NOT NULL,
-        [Date]            DATE             NOT NULL,
-        [RepostId]        UNIQUEIDENTIFIER NULL,
-        [Type]            INT DEFAULT 0 NOT NULL,
-        [QuoteCommentary] NVARCHAR (777)   NULL,
+        [Id] UNIQUEIDENTIFIER NOT NULL,
+        [UserId] INT NOT NULL,
+        [Content] VARCHAR (777)NOT NULL,
+        [Date] DATE NOT NULL,
+        [RepostId] UNIQUEIDENTIFIER NULL,
+        [Type] INT DEFAULT 0 NOT NULL,
+        [QuoteCommentary] NVARCHAR (777) NULL,
         PRIMARY KEY CLUSTERED ([Id] ASC)
     );
    
@@ -27,23 +30,23 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='User')
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name = 'User')
 BEGIN
     CREATE TABLE [dbo].[User] (
-        [Id]           INT          NOT NULL,
-        [Name]         VARCHAR (14) NOT NULL,
-        [CreationDate] DATE         NOT NULL,
+        [Id] INT NOT NULL,
+        [Name] VARCHAR (14) NOT NULL,
+        [CreationDate] DATE NOT NULL,
         PRIMARY KEY CLUSTERED ([Id] ASC)
     );
 END
 GO
 
-IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='UserFollower')
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name = 'UserFollower')
 BEGIN
     CREATE TABLE [dbo].[UserFollower] (
-        [Id]             UNIQUEIDENTIFIER NOT NULL,
-        [UserId]         INT              NOT NULL,
-        [UserFollowerId] INT              NOT NULL,
+        [Id] UNIQUEIDENTIFIER NOT NULL,
+        [UserId] INT NOT NULL,
+        [UserFollowerId] INT NOT NULL,
         PRIMARY KEY CLUSTERED ([Id] ASC)
     );
 
@@ -62,7 +65,7 @@ BEGIN
 	DECLARE @userId3 INT = 3;
 	DECLARE @userId4 INT = 4;
 
-	INSERT INTO [User] VALUES (@userId1, 'Jordan Rudess', GETDATE());
+	INSERT INTO [User] VALUES (@userId1, 'Jordan', GETDATE());
 
 	INSERT INTO [User] VALUES (@userId2, 'Alexander', GETDATE());
 	INSERT INTO [User] VALUES (@userId3, 'Obdolbos', GETDATE());
