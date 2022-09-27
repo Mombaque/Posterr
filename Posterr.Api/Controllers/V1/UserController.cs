@@ -23,10 +23,10 @@ namespace Posterr.Api.Controllers.V1
             _mapper = mapper;
         }
 
-        [HttpGet("get-user-with-posts/{id}")]
-        public async Task<IActionResult> GetPosts(int id)
+        [HttpGet()]
+        public async Task<IActionResult> GetUser(int id)
         {
-            var user = _userRepository.GetUserWithPosts(id);
+            var user = _userRepository.GetUser(id);
             var viewModel = _mapper.Map<UserViewModel>(user);
             return await Task.FromResult(Response(viewModel));
         }

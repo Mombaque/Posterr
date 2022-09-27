@@ -22,7 +22,7 @@ namespace Posterr.InfraData.Repositories
                 .Where(x => x.UserId == userId);
         }
 
-        public User GetUserWithPosts(int userId)
+        public User GetUser(int userId)
         {
             return DbSet
                 .Include(x => x.Posts)

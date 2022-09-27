@@ -2,6 +2,7 @@
 using AutoMapper;
 using Posterr.Api.Controllers.V1.InputModels;
 using Posterr.Domain.Commands.User;
+using Posterr.Domain.Repositories;
 
 namespace Posterr.Api.Configuration.AutoMapper
 {
@@ -9,17 +10,13 @@ namespace Posterr.Api.Configuration.AutoMapper
     {
         public ViewModelToDomainProfile()
         {
-            MapUsers();
-            MapPosts();
+           MapPosts();
         }
 
         private void MapPosts()
         {
             CreateMap<SavePostInputModel, SavePostCommand>();
-        }
-
-        private void MapUsers()
-        {
+            CreateMap<GetPostsInputModel, GetPostsFilter>();
         }
     }
 }

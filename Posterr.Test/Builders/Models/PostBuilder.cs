@@ -17,6 +17,8 @@ namespace Posterr.Test.Builders.Models
             return this;
         }
 
+        public PostBuilder DefaultAndValid(int userId) => DefaultAndValid(userId: userId, id: null);
+
         public PostBuilder WithDate(DateTime date)
         {
             Date = date;
