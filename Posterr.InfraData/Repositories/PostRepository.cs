@@ -11,7 +11,23 @@ namespace Posterr.InfraData.Repositories
         {
         }
 
-        public IQueryable<Post> GetUserPosts(int userId, int quantity = 5, int page = 1) =>
+        public IQueryable<Post> GetPosts(GetPostsFilter filter)
+        {
+            var posts = DbSet.AsQueryable();
+
+            if (filter.StartDate.HasValue)
+                posts = posts.Where(x => x.Date >= filter.StartDate.Value);
+
+            if (filter.FinalDate.HasValue)
+                posts = posts.Where(x => x.Date <= filter.FinalDate);
+
+            if (filter.UserId > 0)
+                posts = posts.Where(x => x.UserId == filter.UserId);
+
+            return posts;
+        }
+
+        public IQueryable<Post> GetUserPosts(int userId, int quantity = 10, int page = 1) =>
             DbSet.Where(x => x.UserId == userId)
                 .OrderBy(x => x.Date)
                 .Skip((page - 1) * quantity)

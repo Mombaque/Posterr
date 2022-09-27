@@ -5,7 +5,7 @@ namespace Posterr.Domain.Repositories
 {
     public interface IUserRepository : IRepository<User, int>
     {
-        User GetUserWithPosts(int userId);
+        User GetUser(int userId);
         IQueryable<UserFollower> GetUserFollowers(int userId);
     }
 }

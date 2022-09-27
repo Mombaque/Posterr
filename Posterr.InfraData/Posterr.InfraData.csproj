@@ -20,7 +20,6 @@
     <ProjectReference Include="..\Domain.Core\Domain.Core.csproj" />
     <ProjectReference Include="..\Infra.Core\Infra.Core.csproj" />
     <ProjectReference Include="..\Posterr.Domain\Posterr.Domain.csproj" />
-    <ProjectReference Include="..\StriderBackend.Domain\Posterr.Domain.csproj" />
   </ItemGroup>
 
 </Project>

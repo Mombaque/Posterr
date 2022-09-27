@@ -24,9 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Infra.Core\Infra.Core.csproj" />
     <ProjectReference Include="..\Posterr.Domain\Posterr.Domain.csproj" />
     <ProjectReference Include="..\Posterr.InfraData\Posterr.InfraData.csproj" />
-    <ProjectReference Include="..\StriderBackend.InfraData\Posterr.InfraData.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,8 +8,6 @@ namespace Posterr.Api.Configuration.AutoMapper
         {
             var config = new MapperConfiguration(cfg =>
             {
-                //cfg.AddProfile(new DomainToViewModelProfile());
-                //cfg.AddProfile(new ViewModelToDomainProfile());
                 cfg.AddProfile<ViewModelToDomainProfile>();
                 cfg.AddProfile<DomainToViewModelProfile>();
             });

@@ -40,7 +40,7 @@ namespace Posterr.Test.Repositories
             _context.AddRange(users);
             _uow.Commit();
 
-            var result = _repository.GetUserWithPosts(userId);
+            var result = _repository.GetUser(userId);
             Assert.Equal(users[1].Id, result.Id);
         }
     }

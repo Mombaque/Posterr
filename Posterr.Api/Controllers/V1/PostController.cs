@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Posterr.Api.Controllers.V1.InputModels;
 using Posterr.Api.Controllers.V1.ViewModels;
 using Posterr.Domain.Commands.User;
+using Posterr.Domain.Models;
 using Posterr.Domain.Repositories;
 
 namespace Posterr.Api.Controllers.V1
@@ -33,6 +34,16 @@ namespace Posterr.Api.Controllers.V1
         {
             var posts = _postRepository.GetUserPosts(userId);
             var viewModel = _mapper.Map<IEnumerable<PostViewModel>>(posts);
+            return await Task.FromResult(Response(viewModel));
+        }
+
+        [HttpGet("get-posts")]
+        public async Task<IActionResult> GetPosts(GetPostsInputModel input)
+        {
+            var filter = _mapper.Map<GetPostsFilter>(input);
+            var posts = _postRepository.GetPosts(filter);
+
+            var viewModel = _mapper.Map<IEnumerable<Post>>(posts);
             return await Task.FromResult(Response(viewModel));
         }
 
