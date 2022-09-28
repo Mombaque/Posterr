@@ -13,7 +13,7 @@ services:
         volumes:
             - C:\Posterr:/var/opt/mssql
     posterr.api:
-        image: posterr_api
+        image: mombach/posterr_api
         container_name: posterrapi
         ports:
         - "8000:8000"
