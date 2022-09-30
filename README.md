@@ -2,12 +2,12 @@
 
 This project was built with a lot of good programming practices. All the core elements were separated in subprojects, each one with a responsability. 
 
-Run the .bat file in Docker/run-docker-compose.bat to create the containers. It will create the SQL Server, API and mssql-tools containers. The API can be tested in `` `localhost:8000/swagger` or through the Postman collections avaiable here.
+Run the .bat file in Docker/run-docker-compose.bat to create the containers. It will create the SQL Server, API and mssql-tools containers. The API can be tested in  `localhost:8000/swagger` or through the Postman collections avaiable here.
 
-## BuildingBlocks
+- BuildingBlocks
 	It has all the core functionalities for the controllers, commands and repositories. It could be a nuget package to be reused in different projects.
 
-## Posterr.Domain
+- Posterr.Domain
 
 	Here are all the business logic.
 	
@@ -22,17 +22,17 @@ Run the .bat file in Docker/run-docker-compose.bat to create the containers. It 
 	Entities are in the Models folder. All entities inherit from a base class, wich has its Id type abstracted. Each entity represents a table in the database. All properties have the "set" as "protected". This way, only classes that inherit it can change its value (necessary in tests becausa of the builder pattern). The post limit validation was performed in the User entity, because it could be reused in other commands. 
 	
 	
-## Posterr.InfraData
+- Posterr.InfraData
 
 	Here are the repositories implementation, using Entity Framework for queries. They are used as abstractions, so the interfaces are in Posterr.Domain. Is also has the context and mappings needed.
 	
 	All queries are covered with unit tests.
 	
-## Posterr.DataBase
+- Posterr.DataBase
 
 	It is a SQL project with all the tables creation and database seed. It generates scripts automatically for this. There is no need to worry about a lot of database operations, like ALTER TABLE. For instance, if a column has its type changed, the project will create the ALTER TABLE by itself, in a script generated when the project is published.
 	
-## Posterr.Test
+- Posterr.Test
 
 	Here are all the unit testing. It is organized by command and repository tests. The Builder Pattern was used for mock creation. 
 	
@@ -40,7 +40,7 @@ Run the .bat file in Docker/run-docker-compose.bat to create the containers. It 
 	
 	Repository tests needed a in memory database, which is created when the tests are. The same builder pattern was used for mocks.
 
-## Critique
+- Critique
 
 I tried to publish the database scripts (table creation and seed, generated automatically) through the SQL Project in the container, but it was working just when I publish manually in Visual Studio. So I found a solution for this, which is using the mssql-tools image for the script execution in docker-compose. But the right way for doing this is letting the database project do all the work.
 
