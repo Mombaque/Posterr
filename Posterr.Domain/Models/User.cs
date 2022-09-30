@@ -13,9 +13,7 @@ namespace Posterr.Domain.Models
         }
 
         public User()
-        {
-
-        }
+        {}
 
         public string Name { get; protected set; }
         public DateTime CreationDate { get; protected set; }
@@ -37,8 +35,14 @@ namespace Posterr.Domain.Models
             Followers.Add(userFollower);
         }
 
+        public void RemoveFollower(User user)
+        {
+            if (Followers == null)
+                return;
+            Followers.Remove(user);
+        }
+
         public bool PostsLimitReached(DateTime date) => 
             Posts.Count(x => x.Date.Date == date.Date) >= POST_LIMIT;
-
     }
 }

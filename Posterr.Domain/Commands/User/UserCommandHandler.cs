@@ -10,7 +10,7 @@ namespace Posterr.Domain.Commands.User
 {
     public class UserCommandHandler : CommandHandler, 
         IRequestHandler<SavePostCommand, bool>,
-        IRequestHandler<FollowUserCommand, bool>
+        IRequestHandler<FollowOrUnfollowUserCommand, bool>
     {
         private readonly IPostRepository _postRepository;
         private readonly IUserRepository _userRepository;
@@ -58,7 +58,7 @@ namespace Posterr.Domain.Commands.User
             return await Task.FromResult(Commit());
         }
 
-        public async Task<bool> Handle(FollowUserCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(FollowOrUnfollowUserCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid())
             {
@@ -80,14 +80,8 @@ namespace Posterr.Domain.Commands.User
                 return await Task.FromResult(false);
             }
 
-            bool alreadyFollowing = user.Followers?.Any(x => x.Id == request.UserFollowerId) ?? false;
-            if (alreadyFollowing)
-            {
-                NotifyError("User is already a follower");
-                return await Task.FromResult(false);
-            }
-
-            user.AddFollower(userFollower);
+            if(request.Follow) user.AddFollower(userFollower);
+            else user.RemoveFollower(userFollower);
 
             return await Task.FromResult(Commit());
         }

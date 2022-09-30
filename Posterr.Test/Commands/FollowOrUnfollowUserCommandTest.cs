@@ -3,18 +3,15 @@ using Domain.Core.Notification;
 using Domain.Core.Repository;
 using Moq;
 using Posterr.Domain.Commands.User;
-using Posterr.Domain.Models;
 using Posterr.Domain.Repositories;
 using Posterr.Test.Builders.Commands;
 using Posterr.Test.Builders.Models;
-using System;
-using System.Collections.Generic;
 using System.Threading;
 using Xunit;
 
 namespace Posterr.Test.Commands
 {
-    public class FollowUserCommandTest
+    public class FollowOrUnfollowUserCommandTest
     {
         private readonly UserCommandHandler _handler;
         private readonly Mock<IUnitOfWork> _uow;
@@ -24,8 +21,7 @@ namespace Posterr.Test.Commands
         private readonly Mock<DomainNotificationHandler> _notifications;
         private readonly CancellationToken _cancellationToken;
 
-
-        public FollowUserCommandTest()
+        public FollowOrUnfollowUserCommandTest()
         {
             _uow = new Mock<IUnitOfWork>();
             _mediator = new Mock<IMediatorHandler>();
@@ -47,7 +43,7 @@ namespace Posterr.Test.Commands
         [Fact]
         public void Should_Create_Validation_Errors()
         {
-            var command = new FollowUserCommandBuilder();
+            var command = new FollowOrUnfollowUserCommandBuilder();
             Assert.False(command.IsValid());
 
             var errors = command.ValidationResult.Errors;
@@ -58,14 +54,14 @@ namespace Posterr.Test.Commands
         [Fact]
         public void Should_Return_True_When_Validating_Command()
         {
-            var command = new FollowUserCommandBuilder().DefaultAndValid();
+            var command = new FollowOrUnfollowUserCommandBuilder().DefaultAndValid();
             Assert.True(command.IsValid());
         }
 
         [Fact]
         public async void Should_Notify_Validation_Errors()
         {
-            var command = new FollowUserCommandBuilder();
+            var command = new FollowOrUnfollowUserCommandBuilder();
             var result = await _handler.Handle(command, _cancellationToken);
 
             Assert.False(result);
@@ -81,7 +77,7 @@ namespace Posterr.Test.Commands
         [Fact]
         public async void Should_Notify_Errors_When_User_Not_Found()
         {
-            var command = new FollowUserCommandBuilder().DefaultAndValid();
+            var command = new FollowOrUnfollowUserCommandBuilder().DefaultAndValid();
 
             _userRepository.Setup(x => x.GetById(command.UserFollowerId))
                 .Returns(new UserBuilder().DefaultAndValid());
@@ -98,7 +94,7 @@ namespace Posterr.Test.Commands
         [Fact]
         public async void Should_Notify_Errors_When_Follower_Not_Found()
         {
-            var command = new FollowUserCommandBuilder().DefaultAndValid();
+            var command = new FollowOrUnfollowUserCommandBuilder().DefaultAndValid();
 
             _userRepository.Setup(x => x.GetById(command.UserId))
                 .Returns(new UserBuilder().DefaultAndValid());
@@ -111,36 +107,12 @@ namespace Posterr.Test.Commands
             _uow.Verify(x => x.Commit(), Times.Never);
         }
 
-        [Fact]
-        public async void Should_Notify_Error_When_Already_Following()
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public async void Should_Add_Follower(bool follow)
         {
-            var command = new FollowUserCommandBuilder().DefaultAndValid();
-
-            var follower = new UserBuilder().DefaultAndValid(command.UserFollowerId);
-
-            _userRepository.Setup(x => x.GetById(command.UserFollowerId))
-                .Returns(follower);
-
-            _userRepository.Setup(x => x.GetById(command.UserId))
-                .Returns(
-                    new UserBuilder().DefaultAndValid(command.UserId)
-                        .WithFollower(follower));
-
-            var result = await _handler.Handle(command, _cancellationToken);
-
-            Assert.False(result);
-
-            _mediator.Verify(x => 
-                x.SendCommand(It.Is<DomainNotification>(y => y.Value == "User is already a follower")), 
-                Times.Once);
-            _uow.Verify(x => x.Commit(), Times.Never);
-        }
-
-        [Fact]
-        public async void Should_Add_Follower()
-        {
-            var command = new FollowUserCommandBuilder().DefaultAndValid();
-
+            var command = new FollowOrUnfollowUserCommandBuilder().DefaultAndValid(follow);
 
             _userRepository.Setup(x => x.GetById(command.UserFollowerId))
                 .Returns(new UserBuilder().DefaultAndValid(command.UserFollowerId));
