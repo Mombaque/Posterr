@@ -21,6 +21,7 @@ Run the .bat file in Docker/run-docker-compose.bat to create the containers. It 
 	
 	Entities are in the Models folder. All entities inherit from a base class, wich has its Id type abstracted. Each entity represents a table in the database. All properties have the "set" as "protected". This way, only classes that inherit it can change its value (necessary in tests becausa of the builder pattern). The post limit validation was performed in the User entity, because it could be reused in other commands. 
 	
+	
 ## Posterr.InfraData
 
 	Here are the repositories implementation, using Entity Framework for queries. They are used as abstractions, so the interfaces are in Posterr.Domain. Is also has the context and mappings needed.
@@ -42,7 +43,5 @@ Run the .bat file in Docker/run-docker-compose.bat to create the containers. It 
 ## Critique
 
 I tried to publish the database scripts (table creation and seed, generated automatically) through the SQL Project in the container, but it was working just when I publish manually in Visual Studio. So I found a solution for this, which is using the mssql-tools image for the script execution in docker-compose. But the right way for doing this is letting the database project do all the work.
-
-I could use RabbitMQ
 
 
