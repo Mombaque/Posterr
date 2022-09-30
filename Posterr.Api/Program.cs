@@ -18,9 +18,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<DataContext>(o =>
-    o.UseSqlServer("Data Source=localhost,11433;Persist Security Info=True;Initial Catalog=PosterrDatabase;User ID=sa;Password=ea!@#12345;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;"));
+var configuration = builder.Configuration;
+var server = configuration["DbServer"] ?? "localhost,11433";
+var user = configuration["DbUser"] ?? "sa";
+var password = configuration["Password"] ?? "ea!@#12345";
+var database = configuration["Database"] ?? "PosterrDatabase";
 
+var connectionString = $"Server={server};Initial Catalog={database};User ID={user};Password={password}";
+
+builder.Services.AddDbContext<DataContext>(o => o.UseSqlServer(connectionString));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork<DataContext>>();
 
 builder.Services.AddControllers().AddJsonOptions(x =>
