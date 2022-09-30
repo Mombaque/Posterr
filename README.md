@@ -10,7 +10,7 @@ Run the .bat file in Docker/run-docker-compose.bat to create the containers. It 
 It has all the core functionalities for the controllers, commands and repositories. It could be a nuget package to be reused in different projects.
 
 
-- Posterr.Domain
+## Posterr.Domain
 
 Here are all the business logic.
 	
@@ -26,28 +26,28 @@ Entities are in the Models folder. All entities inherit from a base class, wich 
 
 	
 	
-- Posterr.InfraData
+## Posterr.InfraData
 
-	Here are the repositories implementation, using Entity Framework for queries. They are used as abstractions, so the interfaces are in Posterr.Domain. Is also has the context and mappings needed.
+Here are the repositories implementation, using Entity Framework for queries. They are used as abstractions, so the interfaces are in Posterr.Domain. Is also has the context and mappings needed.
 	
-	All queries are covered with unit tests.
-	
-	
-- Posterr.DataBase
+All queries are covered with unit tests.
 
-	It is a SQL project with all the tables creation and database seed. It generates scripts automatically for this. There is no need to worry about a lot of database operations, like ALTER TABLE. For instance, if a column has its type changed, the project will create the ALTER TABLE by itself, in a script generated when the project is published.
 	
-	
-- Posterr.Test
+## Posterr.DataBase
 
-	Here are all the unit testing. It is organized by command and repository tests. The Builder Pattern was used for mock creation. 
+It is a SQL project with all the tables creation and database seed. It generates scripts automatically for this. There is no need to worry about a lot of database operations, like ALTER TABLE. For instance, if a column has its type changed, the project will create the ALTER TABLE by itself, in a script generated when the project is published.
 	
-	When testing a command, it is possible to assert if the command is being validated (through FluentValidation), or if a specific class used a specific method, with specific parameters. It is also possible to assert how many times this method was used.
 	
-	Repository tests needed a in memory database, which is created when the tests are. The same builder pattern was used for mocks.
+## Posterr.Test
+
+Here are all the unit testing. It is organized by command and repository tests. The Builder Pattern was used for mock creation. 
+	
+When testing a command, it is possible to assert if the command is being validated (through FluentValidation), or if a specific class used a specific method, with specific parameters. It is also possible to assert how many times this method was used.
+	
+Repository tests needed a in memory database, which is created when the tests are. The same builder pattern was used for mocks.
 
 
-- Critique
+## Critique
 
 I tried to publish the database scripts (table creation and seed, generated automatically) through the SQL Project in the container, but it was working just when I publish manually in Visual Studio. So I found a solution for this, which is using the mssql-tools image for the script execution in docker-compose. But the right way for doing this is letting the database project do all the work.
 
