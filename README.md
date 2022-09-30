@@ -1,10 +1,12 @@
 # Diogo Mombaque Borges
 
+
 This project was built with a lot of good programming practices. All the core elements were separated in subprojects, each one with a responsability. 
 
 Run the .bat file in Docker/run-docker-compose.bat to create the containers. It will create the SQL Server, API and mssql-tools containers. The API can be tested in  `localhost:8000/swagger` or through the Postman collections avaiable here.
 
-- BuildingBlocks
+### BuildingBlocks
+
 It has all the core functionalities for the controllers, commands and repositories. It could be a nuget package to be reused in different projects.
 
 
