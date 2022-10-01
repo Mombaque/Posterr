@@ -51,4 +51,4 @@ Repository tests needed a in memory database, which is created when the tests ar
 
 I tried to publish the database scripts (table creation and seed, generated automatically) through the SQL Project in the container, but it was working just when I publish manually in Visual Studio. So I found a solution for this, which is using the mssql-tools image for the script execution in docker-compose. But the right way for doing this is letting the database project do all the work.
 
-
+I would change the command FollowOrUnfollowUserCommand, because it is has two responsabilities. The right way would be with two commands, FollowUserCommand and UnfollowUserCommand, following the principle of single responsability.
