@@ -52,7 +52,11 @@ BEGIN
     );
 
     ALTER TABLE [dbo].[UserFollower] WITH NOCHECK
-        ADD CONSTRAINT [FK_UserFollower_User] FOREIGN KEY ([UserFollowerId]) REFERENCES [dbo].[User] ([Id]);
+        ADD CONSTRAINT [FK_UserFollower_User1] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([Id]);
+
+
+    ALTER TABLE [dbo].[UserFollower] WITH NOCHECK
+        ADD CONSTRAINT [FK_UserFollower_User2] FOREIGN KEY ([UserFollowerId]) REFERENCES [dbo].[User] ([Id]);
 
     ALTER TABLE [dbo].[UserFollower] WITH CHECK CHECK CONSTRAINT [FK_UserFollower_User];
 END

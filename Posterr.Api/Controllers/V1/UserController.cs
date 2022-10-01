@@ -30,6 +30,7 @@ namespace Posterr.Api.Controllers.V1
         }
 
         [HttpGet()]
+        [ProducesResponseType(typeof(UserViewModel), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = _userRepository.GetUser(id);
@@ -38,6 +39,7 @@ namespace Posterr.Api.Controllers.V1
         }
 
         [HttpGet("get-followers/{userId}")]
+        [ProducesResponseType(typeof(bool), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> GetFollowers(int userId)
         {
             var userFollowers = _userRepository.GetUserFollowers(userId);
@@ -46,6 +48,7 @@ namespace Posterr.Api.Controllers.V1
         }
 
         [HttpPost("follow-or-unfollow")]
+        [ProducesResponseType(typeof(bool), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> Follow(FollowUserInputModel input)
         {
             var command = _mapper.Map<FollowOrUnfollowUserCommand>(input);

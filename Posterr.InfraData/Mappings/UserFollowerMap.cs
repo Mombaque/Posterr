@@ -14,6 +14,11 @@ namespace Posterr.InfraData.Mappings
                 .WithOne()
                 .HasForeignKey<UserFollower>(x => x.UserFollowerId)
                 .HasPrincipalKey<User>(x => x.Id);
+
+            builder.HasOne(x => x.User)
+                .WithOne()
+                .HasForeignKey<UserFollower>(x => x.UserId)
+                .HasPrincipalKey<User>(x => x.Id);
         }
     }
 }

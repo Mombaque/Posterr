@@ -12,7 +12,8 @@ namespace Posterr.InfraData.Mappings
 
             builder.HasOne(x => x.User)
                 .WithMany(x => x.Posts)
-                .HasForeignKey(x => x.UserId);
+                .HasForeignKey(x => x.UserId)
+                .HasPrincipalKey(x => x.Id);
 
             builder.HasOne(x => x.Repost)
                 .WithOne()

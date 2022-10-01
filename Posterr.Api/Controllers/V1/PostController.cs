@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Posterr.Api.Controllers.V1.InputModels;
 using Posterr.Api.Controllers.V1.ViewModels;
 using Posterr.Domain.Commands.User;
-using Posterr.Domain.Models;
 using Posterr.Domain.Repositories;
 
 namespace Posterr.Api.Controllers.V1
@@ -31,6 +30,7 @@ namespace Posterr.Api.Controllers.V1
         }
 
         [HttpGet("get-posts-by-user-id")]
+        [ProducesResponseType(typeof(ICollection<PostViewModel>), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> GetPostsByUserId([FromQuery] GetPostsInputModel input)
         {
             var filter = _mapper.Map<GetPostsFilter>(input);
@@ -42,7 +42,7 @@ namespace Posterr.Api.Controllers.V1
 
         [HttpGet("get-posts")]
         [ProducesResponseType(typeof(PostViewModel), (int)System.Net.HttpStatusCode.OK)]
-        public async Task<IActionResult> GetPosts(GetPostsInputModel input)
+        public async Task<IActionResult> GetPosts([FromQuery] GetPostsInputModel input)
         {
             var filter = _mapper.Map<GetPostsFilter>(input);
             var posts = _postRepository.GetPosts(filter);
@@ -52,6 +52,7 @@ namespace Posterr.Api.Controllers.V1
         }
 
         [HttpPost("save-post")]
+        [ProducesResponseType(typeof(bool), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> SavePost(SavePostInputModel input)
         {
             var command = _mapper.Map<SavePostCommand>(input);
