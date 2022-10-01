@@ -31,7 +31,7 @@ namespace Posterr.Api.Controllers.V1
         }
 
         [HttpGet("get-posts-by-user-id")]
-        public async Task<IActionResult> GetPostsByUserId(GetPostsInputModel input)
+        public async Task<IActionResult> GetPostsByUserId([FromQuery] GetPostsInputModel input)
         {
             var filter = _mapper.Map<GetPostsFilter>(input);
             var posts = _postRepository.GetUserPosts(filter);

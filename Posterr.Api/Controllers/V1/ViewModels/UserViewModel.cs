@@ -6,5 +6,6 @@
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
         public int PostsCount { get; set; }
+        public ICollection<UserViewModel> Followers { get; set; }
     }
 }

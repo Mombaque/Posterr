@@ -64,7 +64,7 @@ namespace Posterr.Domain.Commands.User
                 request.Type);
 
             if (request.RepostId != Guid.Empty)
-                post.AddRepost(request.RepostId);
+                post.AddRepost(request.RepostId, request.QuoteCommentary);
 
             user.AddPost(post);
 

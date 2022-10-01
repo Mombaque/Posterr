@@ -20,12 +20,12 @@ namespace Posterr.Api.Configuration.AutoMapper
 
             CreateMap<UserFollower, UserViewModel>()
                 .ForMember(x => x.Id, y => y.MapFrom(u => u.Follower.Id))
-                .ForMember(x => x.Name, y => y.MapFrom(u => u.Follower.Name));
+                .ForMember(x => x.Name, y => y.MapFrom(u => u.Follower.Name))
+                .ForMember(x => x.CreationDate, y => y.MapFrom(u => u.Follower.CreationDate));
         }
         private void MapPosts()
         {
             CreateMap<Post, PostViewModel>();
-                //.ForMember(x => x.Repost, y => y.MapFrom(z => z.Repost));
         }
     }
 }
