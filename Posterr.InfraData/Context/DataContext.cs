@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Posterr.Domain.Models;
@@ -44,8 +45,6 @@ namespace Posterr.InfraData.Context
                     maxRetryDelay: System.TimeSpan.FromSeconds(10),
                     errorNumbersToAdd: null);
             });
-
-            //optionsBuilder.UseEncryptionFunctions();
         }
     }
 }

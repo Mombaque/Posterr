@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Posterr.Api.Controllers.V1.InputModels;
 using Posterr.Api.Controllers.V1.ViewModels;
 using Posterr.Domain.Commands.User;
-using Posterr.Domain.Models;
 using Posterr.Domain.Repositories;
 
 namespace Posterr.Api.Controllers.V1
 {
+    [Route("[controller]")]
     public class PostController : ApiController
     {
         private readonly IPostRepository _postRepository;
@@ -29,25 +29,30 @@ namespace Posterr.Api.Controllers.V1
             _mediator = mediatorHandler;
         }
 
-        [HttpGet("get-posts-by-user-id/{userId}")]
-        public async Task<IActionResult> GetPostsByUserId(int userId)
+        [HttpGet("get-posts-by-user-id")]
+        [ProducesResponseType(typeof(ICollection<PostViewModel>), (int)System.Net.HttpStatusCode.OK)]
+        public async Task<IActionResult> GetPostsByUserId([FromQuery] GetPostsInputModel input)
         {
-            var posts = _postRepository.GetUserPosts(userId);
-            var viewModel = _mapper.Map<IEnumerable<PostViewModel>>(posts);
+            var filter = _mapper.Map<GetPostsFilter>(input);
+            var posts = _postRepository.GetUserPosts(filter);
+
+            var viewModel = _mapper.Map<ICollection<PostViewModel>>(posts);
             return await Task.FromResult(Response(viewModel));
         }
 
         [HttpGet("get-posts")]
-        public async Task<IActionResult> GetPosts(GetPostsInputModel input)
+        [ProducesResponseType(typeof(PostViewModel), (int)System.Net.HttpStatusCode.OK)]
+        public async Task<IActionResult> GetPosts([FromQuery] GetPostsInputModel input)
         {
             var filter = _mapper.Map<GetPostsFilter>(input);
             var posts = _postRepository.GetPosts(filter);
 
-            var viewModel = _mapper.Map<IEnumerable<Post>>(posts);
+            var viewModel = _mapper.Map<IEnumerable<PostViewModel>>(posts);
             return await Task.FromResult(Response(viewModel));
         }
 
         [HttpPost("save-post")]
+        [ProducesResponseType(typeof(bool), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> SavePost(SavePostInputModel input)
         {
             var command = _mapper.Map<SavePostCommand>(input);

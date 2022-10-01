@@ -33,8 +33,10 @@ namespace Posterr.Test.Models
             Assert.True(result);
         }
 
-        [Fact]
-        public void Should_Return_False_When_Post_Limit_Not_Reached()
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void Should_Return_False_When_Post_Limit_Not_Reached(bool emptyList)
         {
             var date = DateTime.Now.Date;
 
@@ -47,6 +49,9 @@ namespace Posterr.Test.Models
             };
 
             var user = new UserBuilder().DefaultAndValid().WithPosts(posts);
+
+            if (!emptyList)
+                user.WithPosts(posts);
 
             var result = user.PostsLimitReached(date);
             Assert.False(result);

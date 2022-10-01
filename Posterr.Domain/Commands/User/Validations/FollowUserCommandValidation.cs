@@ -2,7 +2,7 @@
 
 namespace Posterr.Domain.Commands.User.Validations
 {
-    public class FollowUserCommandValidation<T> : AbstractValidator<T> where T : FollowUserCommand
+    public class FollowUserCommandValidation<T> : AbstractValidator<T> where T : FollowOrUnfollowUserCommand
     {
         public FollowUserCommandValidation()
         {

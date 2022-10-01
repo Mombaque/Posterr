@@ -1,4 +1,5 @@
 ﻿using Infra.Core;
+using Microsoft.EntityFrameworkCore;
 using Posterr.Domain.Models;
 using Posterr.Domain.Repositories;
 using Posterr.InfraData.Context;
@@ -13,7 +14,8 @@ namespace Posterr.InfraData.Repositories
 
         public IQueryable<Post> GetPosts(GetPostsFilter filter)
         {
-            var posts = DbSet.AsQueryable();
+            var posts = DbSet
+                .Include(x => x.Repost).AsQueryable();
 
             if (filter.StartDate.HasValue)
                 posts = posts.Where(x => x.Date >= filter.StartDate.Value);
@@ -27,10 +29,12 @@ namespace Posterr.InfraData.Repositories
             return posts;
         }
 
-        public IQueryable<Post> GetUserPosts(int userId, int quantity = 10, int page = 1) =>
-            DbSet.Where(x => x.UserId == userId)
+        public IQueryable<Post> GetUserPosts(GetPostsFilter filter) =>
+            DbSet
+                .Include(x => x.Repost)
+                .Where(x => x.UserId == filter.UserId)
                 .OrderBy(x => x.Date)
-                .Skip((page - 1) * quantity)
-                .Take(quantity);
+                .Skip((filter.Page - 1) * filter.Quantity)
+                .Take(filter.Quantity);
     }
 }

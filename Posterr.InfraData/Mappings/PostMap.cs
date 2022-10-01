@@ -10,9 +10,15 @@ namespace Posterr.InfraData.Mappings
         {
             builder.ToTable("Post").HasKey(d => d.Id);
 
-            //builder.HasOne(x => x.User)
-            //    .WithMany(x => x.Posts)
-            //    .HasForeignKey(x => x.UserId);
+            builder.HasOne(x => x.User)
+                .WithMany(x => x.Posts)
+                .HasForeignKey(x => x.UserId)
+                .HasPrincipalKey(x => x.Id);
+
+            builder.HasOne(x => x.Repost)
+                .WithOne()
+                .HasForeignKey<Post>(x => x.RepostId)
+                .HasPrincipalKey<Post>(x => x.Id);
         }
     }
 }

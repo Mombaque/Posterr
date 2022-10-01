@@ -1,11 +1,14 @@
 ﻿using Domain.Core.Models;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Posterr.Domain.Models
 {
     public class User: Entity<int>
     {
         private const int POST_LIMIT = 5;
+
         public User(string name, DateTime creationDate)
         {
             Name = name;
@@ -13,15 +16,15 @@ namespace Posterr.Domain.Models
         }
 
         public User()
-        {
-
-        }
+        {}
 
         public string Name { get; protected set; }
         public DateTime CreationDate { get; protected set; }
-
         public List<Post> Posts { get; protected set; }
+        [NotMapped]
         public List<User> Followers { get; protected set; }
+        [NotMapped]
+        public List<UserFollower> UserFollowers { get; protected set; }
 
         public void AddPost(Post post)
         {
@@ -37,8 +40,19 @@ namespace Posterr.Domain.Models
             Followers.Add(userFollower);
         }
 
-        public bool PostsLimitReached(DateTime date) => 
-            Posts.Count(x => x.Date.Date == date.Date) >= POST_LIMIT;
+        public void RemoveFollower(User user)
+        {
+            if (Followers == null)
+                return;
+            Followers.Remove(user);
+        }
 
+        public bool PostsLimitReached(DateTime date)
+        {
+            if (Posts == null)
+                return false;
+
+            return Posts?.Count(x => x.Date.Date == date.Date) >= POST_LIMIT;
+        }
     }
 }

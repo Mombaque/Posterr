@@ -2,6 +2,7 @@ IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'PosterrDatabase')
 BEGIN
     CREATE DATABASE PosterrDatabase
 END
+GO
 
 USE PosterrDatabase
 GO
@@ -11,8 +12,8 @@ BEGIN
     CREATE TABLE [dbo].[Post] (
         [Id] UNIQUEIDENTIFIER NOT NULL,
         [UserId] INT NOT NULL,
-        [Content] VARCHAR (777)NOT NULL,
-        [Date] DATE NOT NULL,
+        [Content] VARCHAR (777) NOT NULL,
+        [Date] DATETIME NOT NULL,
         [RepostId] UNIQUEIDENTIFIER NULL,
         [Type] INT DEFAULT 0 NOT NULL,
         [QuoteCommentary] NVARCHAR (777) NULL,
@@ -35,7 +36,7 @@ BEGIN
     CREATE TABLE [dbo].[User] (
         [Id] INT NOT NULL,
         [Name] VARCHAR (14) NOT NULL,
-        [CreationDate] DATE NOT NULL,
+        [CreationDate] DATETIME NOT NULL,
         PRIMARY KEY CLUSTERED ([Id] ASC)
     );
 END
@@ -51,7 +52,11 @@ BEGIN
     );
 
     ALTER TABLE [dbo].[UserFollower] WITH NOCHECK
-        ADD CONSTRAINT [FK_UserFollower_User] FOREIGN KEY ([UserFollowerId]) REFERENCES [dbo].[User] ([Id]);
+        ADD CONSTRAINT [FK_UserFollower_User1] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([Id]);
+
+
+    ALTER TABLE [dbo].[UserFollower] WITH NOCHECK
+        ADD CONSTRAINT [FK_UserFollower_User2] FOREIGN KEY ([UserFollowerId]) REFERENCES [dbo].[User] ([Id]);
 
     ALTER TABLE [dbo].[UserFollower] WITH CHECK CHECK CONSTRAINT [FK_UserFollower_User];
 END
@@ -66,7 +71,6 @@ BEGIN
 	DECLARE @userId4 INT = 4;
 
 	INSERT INTO [User] VALUES (@userId1, 'Jordan', GETDATE());
-
 	INSERT INTO [User] VALUES (@userId2, 'Alexander', GETDATE());
 	INSERT INTO [User] VALUES (@userId3, 'Obdolbos', GETDATE());
 	INSERT INTO [User] VALUES (@userId4, 'Someone', GETDATE());

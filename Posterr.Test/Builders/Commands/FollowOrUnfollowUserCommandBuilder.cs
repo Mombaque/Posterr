@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 
 namespace Posterr.Test.Builders.Commands
 {
-    public class FollowUserCommandBuilder : FollowUserCommand
+    public class FollowOrUnfollowUserCommandBuilder : FollowOrUnfollowUserCommand
     {
-        public FollowUserCommandBuilder() : base(default, default)
+        public FollowOrUnfollowUserCommandBuilder() : base(default, default)
         {}
 
-        public FollowUserCommandBuilder DefaultAndValid()
+        public FollowOrUnfollowUserCommandBuilder DefaultAndValid()
         {
             UserId = 15;
             UserFollowerId = 20;
+
             return this;
         }
     }
