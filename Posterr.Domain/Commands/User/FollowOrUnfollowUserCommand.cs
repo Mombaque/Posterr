@@ -5,16 +5,15 @@ namespace Posterr.Domain.Commands.User
 {
     public class FollowOrUnfollowUserCommand : Command<bool>
     {
-        public FollowOrUnfollowUserCommand(int userId, int userFollowerId, bool follow)
+        public FollowOrUnfollowUserCommand(int userId, int userFollowerId)
         {
             UserId = userId;
             UserFollowerId = userFollowerId;
-            Follow = follow;
         }
 
         public int UserId { get; protected set; }
         public int UserFollowerId { get; protected set; }
-        public bool Follow { get; protected set; }
+
         public override bool IsValid()
         {
             ValidationResult = new FollowUserCommandValidation<FollowOrUnfollowUserCommand>().Validate(this);

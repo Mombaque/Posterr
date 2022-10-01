@@ -42,7 +42,12 @@ namespace Posterr.Domain.Models
             Followers.Remove(user);
         }
 
-        public bool PostsLimitReached(DateTime date) => 
-            Posts.Count(x => x.Date.Date == date.Date) >= POST_LIMIT;
+        public bool PostsLimitReached(DateTime date)
+        {
+            if (Posts == null)
+                return false;
+
+            return Posts?.Count(x => x.Date.Date == date.Date) >= POST_LIMIT;
+        }
     }
 }

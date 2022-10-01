@@ -25,6 +25,7 @@ namespace Posterr.Api.Configuration.AutoMapper
         private void MapPosts()
         {
             CreateMap<Post, PostViewModel>();
+                //.ForMember(x => x.Repost, y => y.MapFrom(z => z.Repost));
         }
     }
 }

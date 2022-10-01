@@ -20,28 +20,30 @@ namespace Posterr.Test.Commands
         private readonly Mock<IUnitOfWork> _uow;
         private readonly Mock<IMediatorHandler> _mediator;
         private readonly Mock<IUserRepository> _userRepository;
+        private readonly Mock<IUserFollowerRepository> _userFollowerRepository;
         private readonly Mock<IPostRepository> _postRepository;
         private readonly Mock<DomainNotificationHandler> _notifications;
         private readonly CancellationToken _cancellationToken;
-
 
         public SavePostCommandTest()
         {
             _uow = new Mock<IUnitOfWork>();
             _mediator = new Mock<IMediatorHandler>();
-            _postRepository = new Mock<IPostRepository>();
-            _userRepository = new Mock<IUserRepository>();
             _notifications = new Mock<DomainNotificationHandler>();
+            _uow.Setup(x => x.Commit()).Returns(true);
             _cancellationToken = new CancellationToken();
 
-            _uow.Setup(x => x.Commit()).Returns(true);
+            _postRepository = new Mock<IPostRepository>();
+            _userRepository = new Mock<IUserRepository>();
+            _userFollowerRepository = new Mock<IUserFollowerRepository>();
 
             _handler = new UserCommandHandler(
                 _uow.Object,
                 _mediator.Object,
+                _notifications.Object,
                 _postRepository.Object,
                 _userRepository.Object,
-                _notifications.Object);
+                _userFollowerRepository.Object);
         }
 
         [Fact]
@@ -90,21 +92,6 @@ namespace Posterr.Test.Commands
         }
 
         [Fact]
-        public async void Should_Return_True_When_Post_Added_To_User()
-        {
-            _userRepository.Setup(x => x.GetById(It.IsAny<int>()))
-                .Returns(new UserBuilder().DefaultAndValid());
-
-            var command = new SavePostCommandBuilder().DefaultAndValid();
-            var result = await _handler.Handle(command, _cancellationToken);
-
-            Assert.True(result);
-
-            _mediator.Verify(x => x.SendCommand(It.IsAny<DomainNotification>()), Times.Never);
-            _uow.Verify(x => x.Commit(), Times.Once);
-        }
-
-        [Fact]
         public async void Should_Return_False_When_User_Reached_Post_Limit_Per_Day()
         {
             var date = DateTime.Now.Date;
@@ -115,10 +102,9 @@ namespace Posterr.Test.Commands
                 new PostBuilder().DefaultAndValid().WithDate(date),
                 new PostBuilder().DefaultAndValid().WithDate(date),
                 new PostBuilder().DefaultAndValid().WithDate(date),
-                new PostBuilder().DefaultAndValid().WithDate(date),
-            };
+                new PostBuilder().DefaultAndValid().WithDate(date),            };
 
-            _userRepository.Setup(x => x.GetById(It.IsAny<int>()))
+            _userRepository.Setup(x => x.GetUser(It.IsAny<int>()))
                 .Returns(
                     new UserBuilder().DefaultAndValid()
                         .WithPosts(posts));
@@ -130,10 +116,58 @@ namespace Posterr.Test.Commands
 
             _mediator.Verify(x => 
                 x.SendCommand(It.Is<DomainNotification>(y => 
-                    y.Value.Contains("User reached maximum of 5 allowed in this date"))), 
+                    y.Value.Contains("User reached maximum of 5 allowed posts in this date"))), 
                 Times.Once);
 
             _uow.Verify(x => x.Commit(), Times.Never);
+        }
+
+        [Fact]
+        public async void Should_Return_False_When_Post_Not_Found()
+        {
+            var date = DateTime.Now.Date;
+
+            _userRepository.Setup(x => x.GetUser(It.IsAny<int>()))
+                .Returns(new UserBuilder().DefaultAndValid());
+
+            var command = new SavePostCommandBuilder().DefaultAndValid().WithRepostId(Guid.NewGuid());
+            var result = await _handler.Handle(command, _cancellationToken);
+
+            Assert.False(result);
+
+            _mediator.Verify(x =>
+                x.SendCommand(It.Is<DomainNotification>(y =>
+                    y.Value.Contains("Post not found with the repostId informed"))),
+                Times.Once);
+
+            _uow.Verify(x => x.Commit(), Times.Never);
+        }
+         
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public async void Should_Return_True_When_Post_Added_To_User(bool isRepost)
+        {
+            var command = new SavePostCommandBuilder().DefaultAndValid();
+            
+            _userRepository.Setup(x => x.GetUser(It.IsAny<int>()))
+                .Returns(new UserBuilder().DefaultAndValid());
+
+            if (isRepost)
+            {
+                var respost = new PostBuilder().DefaultAndValid();
+                _postRepository.Setup(x => x.GetById(It.IsAny<Guid>()))
+                    .Returns(respost);
+
+                command.WithRepostId(respost.Id);
+            }
+
+            var result = await _handler.Handle(command, _cancellationToken);
+
+            Assert.True(result);
+
+            _mediator.Verify(x => x.SendCommand(It.IsAny<DomainNotification>()), Times.Never);
+            _uow.Verify(x => x.Commit(), Times.Once);
         }
     }
 }

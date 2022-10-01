@@ -38,6 +38,7 @@ builder.Services.AddScoped<IMediatorHandler, InMemoryMediator>();
 builder.Services.AddScoped<IRequestHandler<DomainNotification, bool>, DomainNotificationHandler>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserFollowerRepository, UserFollowerRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 
 builder.Services.AddAutoMapper(typeof(DomainToViewModelProfile), typeof(ViewModelToDomainProfile));

@@ -1,10 +1,11 @@
-﻿using Posterr.Domain.Models;
+﻿using Domain.Core.Repository;
+using Posterr.Domain.Models;
 
 namespace Posterr.Domain.Repositories
 {
-    public interface IPostRepository
+    public interface IPostRepository : IRepository<Post, Guid>
     {
-        IQueryable<Post> GetUserPosts(int userId, int quantity = 5, int page = 1);
+        IQueryable<Post> GetUserPosts(GetPostsFilter filter);
         IQueryable<Post> GetPosts(GetPostsFilter filter);
     }
 
@@ -14,5 +15,7 @@ namespace Posterr.Domain.Repositories
         public DateTime? StartDate { get; set; }
         public DateTime? FinalDate { get; set; }
         public int UserId { get; set; }
+        public int Page { get; set; }
+        public int Quantity { get; set; }
     }
 }

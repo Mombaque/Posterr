@@ -3,7 +3,7 @@
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
     [UserId] INT NOT NULL,
     [Content] VARCHAR(777) NOT NULL, 
-    [Date] DATE NOT NULL, 
+    [Date] DATETIME NOT NULL, 
     [RepostId] UNIQUEIDENTIFIER NULL, 
     [Type] INT NOT NULL DEFAULT 0, 
     [QuoteCommentary] NVARCHAR(777) NULL, 

@@ -6,5 +6,7 @@
         public string Content { get; set; }
         public DateTime Date { get; set; }
         public int UserId { get; set; }
+        public PostViewModel? Repost { get; set; }
+        public string? quoteCommentary { get; set; }
     }
 }

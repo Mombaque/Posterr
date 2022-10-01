@@ -9,14 +9,13 @@ namespace Posterr.Test.Builders.Commands
 {
     public class FollowOrUnfollowUserCommandBuilder : FollowOrUnfollowUserCommand
     {
-        public FollowOrUnfollowUserCommandBuilder() : base(default, default, false)
+        public FollowOrUnfollowUserCommandBuilder() : base(default, default)
         {}
 
-        public FollowOrUnfollowUserCommandBuilder DefaultAndValid(bool follow = false)
+        public FollowOrUnfollowUserCommandBuilder DefaultAndValid()
         {
             UserId = 15;
             UserFollowerId = 20;
-            Follow = follow;
 
             return this;
         }

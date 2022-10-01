@@ -14,16 +14,19 @@ namespace Posterr.Domain.Commands.User
     {
         private readonly IPostRepository _postRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IUserFollowerRepository _userFollowerRepository;
 
         public UserCommandHandler(
             IUnitOfWork uow,
             IMediatorHandler mediator,
+            IRequestHandler<DomainNotification, bool> notificationHandler,
             IPostRepository postRepository,
             IUserRepository userRepository,
-            IRequestHandler<DomainNotification, bool> notificationHandler) : base(uow, mediator, notificationHandler)
+            IUserFollowerRepository userFollowerRepository) : base(uow, mediator, notificationHandler)
         {
             _postRepository = postRepository;
             _userRepository = userRepository;
+            _userFollowerRepository = userFollowerRepository;
         }
 
         public async Task<bool> Handle(SavePostCommand request, CancellationToken cancellationToken)
@@ -31,20 +34,27 @@ namespace Posterr.Domain.Commands.User
             if (!request.IsValid())
             {
                 NotifyValidationErrors(request);
-                return await Task.FromResult(false);
+                return false;
             }
 
-            var user = _userRepository.GetById(request.UserId);
+            var user = _userRepository.GetUser(request.UserId);
             if (user == null)
             {
                 NotifyError("User not found");
-                return await Task.FromResult(false);
+                return false;
             }
 
             if (user.PostsLimitReached(request.Date))
             {
-                NotifyError("User reached maximum of 5 allowed in this date");
-                return await Task.FromResult(false);
+                NotifyError("User reached maximum of 5 allowed posts in this date");
+                return false;
+            }
+
+            var repost = _postRepository.GetById(request.RepostId);
+            if (request.RepostId != default && repost == null)
+            {
+                NotifyError("Post not found with the repostId informed");
+                return false;
             }
 
             var post = new Post(
@@ -52,6 +62,9 @@ namespace Posterr.Domain.Commands.User
                 request.Date,
                 request.UserId,
                 request.Type);
+
+            if (request.RepostId != Guid.Empty)
+                post.AddRepost(request.RepostId);
 
             user.AddPost(post);
 
@@ -63,25 +76,29 @@ namespace Posterr.Domain.Commands.User
             if (!request.IsValid())
             {
                 NotifyValidationErrors(request);
-                return await Task.FromResult(false);
+                return false;
             }
 
             var user = _userRepository.GetById(request.UserId);
             if (user == null)
             {
                 NotifyError("User not found");
-                return await Task.FromResult(false);
+                return false;
             }
 
             var userFollower = _userRepository.GetById(request.UserFollowerId);
             if (userFollower == null)
             {
                 NotifyError("Follower not found");
-                return await Task.FromResult(false);
+                return false;
             }
 
-            if(request.Follow) user.AddFollower(userFollower);
-            else user.RemoveFollower(userFollower);
+            var userFollowerEntity = _userFollowerRepository.GetUserFollower(user.Id, userFollower.Id);
+
+            if(userFollowerEntity == null)
+                _userFollowerRepository.Add(new UserFollower(user.Id, userFollower.Id));
+            else
+                _userFollowerRepository.Delete(userFollowerEntity);
 
             return await Task.FromResult(Commit());
         }

@@ -10,13 +10,22 @@ namespace Posterr.Api.Configuration.AutoMapper
     {
         public ViewModelToDomainProfile()
         {
-           MapPosts();
+            MapUsers();
+            MapPosts();
+        }
+
+        private void MapUsers()
+        {
+            CreateMap<FollowUserInputModel, FollowOrUnfollowUserCommand>();
         }
 
         private void MapPosts()
         {
-            CreateMap<SavePostInputModel, SavePostCommand>();
-            CreateMap<GetPostsInputModel, GetPostsFilter>();
+            CreateMap<SavePostInputModel, SavePostCommand>()
+                .ForMember(x => x.Date, y => y.MapFrom(_ => DateTime.Now));
+
+            CreateMap<GetPostsInputModel, GetPostsFilter>()
+                .ForMember(x => x.CurrentDate, y => y.MapFrom(_ => DateTime.Now));
         }
     }
 }

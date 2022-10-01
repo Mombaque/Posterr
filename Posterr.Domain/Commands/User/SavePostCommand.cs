@@ -16,6 +16,11 @@ namespace Posterr.Domain.Commands.User
             QuoteCommentary = quoteCommentary;
         }
 
+        public SavePostCommand()
+        {
+
+        }
+
         public int UserId { get; protected set; }
         public string Content { get; protected set; }
         public DateTime Date { get; protected set; }

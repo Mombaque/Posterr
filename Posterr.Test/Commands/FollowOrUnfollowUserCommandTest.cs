@@ -17,6 +17,7 @@ namespace Posterr.Test.Commands
         private readonly Mock<IUnitOfWork> _uow;
         private readonly Mock<IMediatorHandler> _mediator;
         private readonly Mock<IUserRepository> _userRepository;
+        private readonly Mock<IUserFollowerRepository> _userFollowerRepository;
         private readonly Mock<IPostRepository> _postRepository;
         private readonly Mock<DomainNotificationHandler> _notifications;
         private readonly CancellationToken _cancellationToken;
@@ -25,19 +26,21 @@ namespace Posterr.Test.Commands
         {
             _uow = new Mock<IUnitOfWork>();
             _mediator = new Mock<IMediatorHandler>();
-            _postRepository = new Mock<IPostRepository>();
-            _userRepository = new Mock<IUserRepository>();
             _notifications = new Mock<DomainNotificationHandler>();
+            _uow.Setup(x => x.Commit()).Returns(true);
             _cancellationToken = new CancellationToken();
 
-            _uow.Setup(x => x.Commit()).Returns(true);
+            _postRepository = new Mock<IPostRepository>();
+            _userRepository = new Mock<IUserRepository>();
+            _userFollowerRepository = new Mock<IUserFollowerRepository>();
 
             _handler = new UserCommandHandler(
                 _uow.Object,
                 _mediator.Object,
+                _notifications.Object,
                 _postRepository.Object,
                 _userRepository.Object,
-                _notifications.Object);
+                _userFollowerRepository.Object);
         }
 
         [Fact]
@@ -107,12 +110,10 @@ namespace Posterr.Test.Commands
             _uow.Verify(x => x.Commit(), Times.Never);
         }
 
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public async void Should_Add_Follower(bool follow)
+        [Fact]
+        public async void Should_Add_Follower()
         {
-            var command = new FollowOrUnfollowUserCommandBuilder().DefaultAndValid(follow);
+            var command = new FollowOrUnfollowUserCommandBuilder().DefaultAndValid();
 
             _userRepository.Setup(x => x.GetById(command.UserFollowerId))
                 .Returns(new UserBuilder().DefaultAndValid(command.UserFollowerId));

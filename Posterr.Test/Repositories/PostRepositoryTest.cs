@@ -48,7 +48,13 @@ namespace Posterr.Test.Repositories
             _context.AddRange(posts);
             _uow.Commit();
 
-            var result = _repository.GetUserPosts(userId, quantity, page);
+            var filter = new GetPostsFilter
+            {
+                UserId = userId,
+                Quantity = quantity,
+                Page = page
+            };
+            var result = _repository.GetUserPosts(filter);
 
             Assert.True(result.All(x => x.UserId == userId));
             Assert.Equal(quantity, result.Count());
