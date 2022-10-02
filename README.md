@@ -46,6 +46,8 @@ When testing a command, it is possible to assert if the command is being validat
 	
 Repository tests needed a in memory database, which is created when the tests are. The same builder pattern was used for mocks.
 
+Run `Posterr.Test/RunCoverlet.ps1` to generate the coverage report.
+
 
 ## Critique
 
