@@ -1,0 +1,210 @@
+{
+	"info": {
+		"_postman_id": "2eb9c2c7-026b-4498-a4c3-fdac97cc1a66",
+		"name": "Posterr",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9535367"
+	},
+	"item": [
+		{
+			"name": "Get User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/User?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"User"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Followers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/User/get-followers/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"User",
+						"get-followers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Follow or unfollow",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": 1,\r\n    \"UserFollowerId\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/User/follow-or-unfollow",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"User",
+						"follow-or-unfollow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"content\": \"Mussum Ipsum, cacilds vidis litro abertis\",\r\n  \"userId\": 2,\r\n  \"type\": 1,\r\n  \"repostId\": \"c3c1f365-a441-4d51-46f4-08daa405a73f\",\r\n  \"quoteCommentary\": \"Interagi no mé, cursus quis, vehicula ac nisi\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/Post/save-post",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"Post",
+						"save-post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/Post/get-posts-by-user-id?StartDate=2022-10-01T00:27:16.816Z&FinalDate=2022-10-01T23:27:16.816Z&UserId=2&Page=1&Quantity=15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"Post",
+						"get-posts-by-user-id"
+					],
+					"query": [
+						{
+							"key": "StartDate",
+							"value": "2022-10-01T00:27:16.816Z"
+						},
+						{
+							"key": "FinalDate",
+							"value": "2022-10-01T23:27:16.816Z"
+						},
+						{
+							"key": "UserId",
+							"value": "2"
+						},
+						{
+							"key": "Page",
+							"value": "1"
+						},
+						{
+							"key": "Quantity",
+							"value": "15"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get posts with pagination",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/Post/get-posts?StartDate=2022-10-01T02:27:16.816Z&EndDate=2022-10-01T02:27:16.816Z&UserId=2&Page=1&Quantity=15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"Post",
+						"get-posts"
+					],
+					"query": [
+						{
+							"key": "StartDate",
+							"value": "2022-10-01T02:27:16.816Z"
+						},
+						{
+							"key": "EndDate",
+							"value": "2022-10-01T02:27:16.816Z"
+						},
+						{
+							"key": "UserId",
+							"value": "2"
+						},
+						{
+							"key": "Page",
+							"value": "1"
+						},
+						{
+							"key": "Quantity",
+							"value": "15"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
